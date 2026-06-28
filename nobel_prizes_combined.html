@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诺贝尔奖综合系统 - 完整历史与科学分类</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+    <script src="nobel_data.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #1a1a2e, #667eea);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        h2 { color: #2d3748; font-size: 2em; margin: 40px 0 25px; border-bottom: 4px solid #667eea; padding-bottom: 15px; }
+        h3 { color: #4a5568; font-size: 1.6em; margin: 25px 0 18px; }
+        h4 { color: #2d3748; font-size: 1.2em; margin-bottom: 10px; }
+
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 6px solid #667eea;
+        }
+
+        /* 搜索栏 */
+        .search-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus { border-color: #667eea; }
+
+        .search-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .search-button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
+
+        .search-filter {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .filter-chip {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .filter-chip.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .filter-chip:hover { border-color: #667eea; }
+
+        /* 导航标签 */
+        .nav-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #e2e8f0;
+            flex-wrap: wrap;
+        }
+
+        .nav-tab {
+            padding: 18px 30px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #718096;
+            transition: all 0.3s;
+            border-radius: 12px 12px 0 0;
+            margin-right: 5px;
+        }
+
+        .nav-tab.active { color: #667eea; background: #f7fafc; border-bottom: 4px solid #667eea; }
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 学科卡片 */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .category-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid #667eea;
+            cursor: pointer;
+        }
+
+        .category-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); }
+
+        .category-title { color: #1a1a2e; font-size: 1.4em; margin-bottom: 10px; font-weight: bold; }
+        .category-desc { color: #718096; font-size: 0.95em; margin-bottom: 15px; }
+
+        .category-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* 子分类网格 */
+        .subcategory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .subcategory-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border-top: 4px solid #764ba2;
+            cursor: pointer;
+        }
+
+        .subcategory-card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); }
+
+        .subcategory-title { color: #2d3748; font-size: 1.2em; margin-bottom: 8px; font-weight: bold; }
+        .subcategory-desc { color: #718096; font-size: 0.9em; margin-bottom: 10px; }
+        .subcategory-count {
+            display: inline-block;
+            background: #f0f4f8;
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        /* 奖项列表 */
+        .prize-list { margin-top: 20px; }
+
+        .prize-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+            transition: box-shadow 0.3s;
+        }
+
+        .prize-item:hover { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); }
+
+        .prize-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .prize-year {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            flex-shrink: 0;
+        }
+
+        .prize-category-tag {
+            background: #f0f4f8;
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .prize-winners { font-size: 1.1em; font-weight: bold; color: #1a1a2e; margin-bottom: 8px; }
+        .prize-motivation { color: #4a5568; margin-bottom: 10px; }
+
+        .expand-button {
+            background: #f0f4f8;
+            color: #667eea;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .expand-button:hover { background: #667eea; color: white; }
+
+        .prize-details {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #f0f4f8;
+        }
+
+        .prize-details.show { display: block; }
+
+        .detail-section { margin-bottom: 15px; }
+        .detail-section h4 { color: #667eea; margin-bottom: 6px; }
+        .detail-section p { color: #4a5568; line-height: 1.8; }
+
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 1em;
+            color: #718096;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb-separator { color: #cbd5e0; }
+
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-number { font-size: 2.5em; font-weight: bold; margin-bottom: 10px; }
+        .stat-label { font-size: 1.1em; opacity: 0.9; }
+
+        /* 搜索结果 */
+        .search-results-info {
+            color: #718096;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #a0aec0;
+            font-size: 1.2em;
+        }
+
+        .back-button {
+            background: #f0f4f8;
+            color: #667eea;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover { background: #667eea; color: white; }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            h1 { font-size: 2em; }
+            .nav-tabs { flex-direction: column; }
+            .nav-tab { text-align: center; }
+            .content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>诺贝尔奖综合系统</h1>
+            <p style="font-size: 1.3em; color: #4a5568; margin-bottom: 20px;">完整历史 (1901-2025) × 科学分类系统</p>
+            <p style="font-size: 1.1em; color: #718096;">探索人类智慧的辉煌历程，理解科学发现的深刻内涵</p>
+        </header>
+
+        <div class="content">
+            <!-- 搜索栏 -->
+            <div class="search-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="搜索获奖者、年份、领域、关键词..." onkeydown="if(event.key==='Enter') performSearch()">
+                <button class="search-button" onclick="performSearch()">搜索</button>
+            </div>
+
+            <div class="search-filter" id="searchFilters">
+                <div class="filter-chip active" onclick="setSearchFilter('all', this)">全部学科</div>
+                <div class="filter-chip" onclick="setSearchFilter('physics', this)">物理学</div>
+                <div class="filter-chip" onclick="setSearchFilter('chemistry', this)">化学</div>
+                <div class="filter-chip" onclick="setSearchFilter('medicine', this)">医学</div>
+                <div class="filter-chip" onclick="setSearchFilter('literature', this)">文学</div>
+                <div class="filter-chip" onclick="setSearchFilter('peace', this)">和平</div>
+                <div class="filter-chip" onclick="setSearchFilter('economics', this)">经济学</div>
+            </div>
+
+            <!-- 导航标签 -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('overview', this)">系统概述</button>
+                <button class="nav-tab" onclick="switchTab('categories', this)">学科分类</button>
+                <button class="nav-tab" onclick="switchTab('search', this)">搜索结果</button>
+            </div>
+
+            <!-- 系统概述 -->
+            <div id="overview" class="tab-content active">
+                <h2>诺贝尔奖统计概览</h2>
+                <div class="highlight-box">
+                    <p>诺贝尔奖自1901年设立以来，已成为全球最具影响力的科学和文化奖项。本系统涵盖1901年至2025年共125年的完整历史数据，按6个学科大类和28个子分类进行系统整理。</p>
+                </div>
+
+                <div class="stats-grid" id="statsGrid"></div>
+
+                <h3>各学科奖项分布</h3>
+                <div class="category-grid" id="overviewCategories"></div>
+            </div>
+
+            <!-- 学科分类 -->
+            <div id="categories" class="tab-content">
+                <div id="categoryView">
+                    <h2>学科分类浏览</h2>
+                    <div class="highlight-box">
+                        <p>选择一个学科大类，查看其下的子分类和详细奖项信息。每个学科都按照研究领域进行了细分。</p>
+                    </div>
+                    <div class="category-grid" id="categoryList"></div>
+                </div>
+
+                <div id="subcategoryView" style="display:none;">
+                    <div class="breadcrumb" id="subcategoryBreadcrumb"></div>
+                    <button class="back-button" onclick="showCategoryList()">← 返回学科列表</button>
+                    <h2 id="subcategoryTitle"></h2>
+                    <p id="subcategoryDescription" style="color:#718096; margin-bottom:20px;"></p>
+                    <div class="subcategory-grid" id="subcategoryList"></div>
+                </div>
+
+                <div id="prizeView" style="display:none;">
+                    <div class="breadcrumb" id="prizeBreadcrumb"></div>
+                    <button class="back-button" onclick="showSubcategoryList()">← 返回子分类列表</button>
+                    <h2 id="prizeViewTitle"></h2>
+                    <p id="prizeViewDescription" style="color:#718096; margin-bottom:20px;"></p>
+                    <div class="prize-list" id="prizeList"></div>
+                </div>
+            </div>
+
+            <!-- 搜索结果 -->
+            <div id="search" class="tab-content">
+                <h2>搜索结果</h2>
+                <div class="search-results-info" id="searchResultsInfo"></div>
+                <div class="prize-list" id="searchResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentCategory = null;
+        let currentSubcategory = null;
+        let searchFilter = 'all';
+
+        // 初始化统计概览
+        function initOverview() {
+            const statsGrid = document.getElementById('statsGrid');
+            let totalPrizes = 0;
+            let totalSubcategories = 0;
+            const categoryStats = [];
+
+            for (const [key, cat] of Object.entries(nobelCategories)) {
+                let catTotal = 0;
+                let subCount = 0;
+                for (const sub of Object.values(cat.subcategories)) {
+                    catTotal += sub.prizes.length;
+                    if (sub.prizes.length > 0) subCount++;
+                }
+                totalPrizes += catTotal;
+                totalSubcategories += subCount;
+                categoryStats.push({ key, name: cat.name, description: cat.description, total: catTotal, subCount });
+            }
+
+            statsGrid.innerHTML = `
+                <div class="stat-card"><div class="stat-number">${totalPrizes}</div><div class="stat-label">总奖项数</div></div>
+                <div class="stat-card"><div class="stat-number">6</div><div class="stat-label">学科大类</div></div>
+                <div class="stat-card"><div class="stat-number">${totalSubcategories}</div><div class="stat-label">子分类数</div></div>
+                <div class="stat-card"><div class="stat-number">125</div><div class="stat-label">历史跨度(年)</div></div>
+            `;
+
+            const overviewCategories = document.getElementById('overviewCategories');
+            overviewCategories.innerHTML = categoryStats.map(s => `
+                <div class="category-card" onclick="switchTab('categories', document.querySelectorAll('.nav-tab')[1]); showSubcategories('${s.key}')">
+                    <div class="category-title">${s.name}</div>
+                    <div class="category-desc">${s.description}</div>
+                    <div class="category-stats">
+                        <span>${s.total} 个奖项</span>
+                        <span>${s.subCount} 个子分类</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 显示学科列表
+        function showCategoryList() {
+            document.getElementById('categoryView').style.display = 'block';
+            document.getElementById('subcategoryView').style.display = 'none';
+            document.getElementById('prizeView').style.display = 'none';
+
+            const list = document.getElementById('categoryList');
+            list.innerHTML = Object.entries(nobelCategories).map(([key, cat]) => {
+                let total = 0;
+                let subCount = 0;
+                for (const sub of Object.values(cat.subcategories)) {
+                    total += sub.prizes.length;
+                    if (sub.prizes.length > 0) subCount++;
+                }
+                return `
+                    <div class="category-card" onclick="showSubcategories('${key}')">
+                        <div class="category-title">${cat.name}</div>
+                        <div class="category-desc">${cat.description}</div>
+                        <div class="category-stats">
+                            <span>${total} 个奖项</span>
+                            <span>${subCount} 个子分类</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 显示子分类列表
+        function showSubcategories(categoryKey) {
+            currentCategory = categoryKey;
+            const cat = nobelCategories[categoryKey];
+            if (!cat) return;
+
+            document.getElementById('categoryView').style.display = 'none';
+            document.getElementById('subcategoryView').style.display = 'block';
+            document.getElementById('prizeView').style.display = 'none';
+
+            document.getElementById('subcategoryTitle').textContent = `${cat.name} - 专业领域分类`;
+            document.getElementById('subcategoryDescription').textContent = cat.description;
+            document.getElementById('subcategoryBreadcrumb').innerHTML =
+                `<a onclick="showCategoryList()">学科分类</a><span class="breadcrumb-separator">›</span><span>${cat.name}</span>`;
+
+            const list = document.getElementById('subcategoryList');
+            list.innerHTML = Object.entries(cat.subcategories).map(([subKey, sub]) => `
+                <div class="subcategory-card" onclick="showPrizes('${categoryKey}', '${subKey}')">
+                    <div class="subcategory-title">${sub.name}</div>
+                    <div class="subcategory-desc">${sub.description}</div>
+                    <span class="subcategory-count">${sub.prizes.length} 个奖项</span>
+                </div>
+            `).join('');
+        }
+
+        // 显示奖项列表
+        function showPrizes(categoryKey, subcategoryKey) {
+            currentCategory = categoryKey;
+            currentSubcategory = subcategoryKey;
+            const cat = nobelCategories[categoryKey];
+            const sub = cat.subcategories[subcategoryKey];
+            if (!sub) return;
+
+            document.getElementById('categoryView').style.display = 'none';
+            document.getElementById('subcategoryView').style.display = 'none';
+            document.getElementById('prizeView').style.display = 'block';
+
+            document.getElementById('prizeViewTitle').textContent = sub.name;
+            document.getElementById('prizeViewDescription').textContent = sub.description;
+            document.getElementById('prizeBreadcrumb').innerHTML =
+                `<a onclick="showCategoryList()">学科分类</a><span class="breadcrumb-separator">›</span>` +
+                `<a onclick="showSubcategories('${categoryKey}')">${cat.name}</a><span class="breadcrumb-separator">›</span>` +
+                `<span>${sub.name}</span>`;
+
+            const list = document.getElementById('prizeList');
+            if (sub.prizes.length === 0) {
+                list.innerHTML = '<div class="no-results">该子分类暂无奖项数据</div>';
+                return;
+            }
+
+            // 按年份降序排列
+            const sorted = [...sub.prizes].sort((a, b) => parseInt(b.year) - parseInt(a.year));
+            list.innerHTML = sorted.map((prize, i) => createPrizeHTML(prize, cat.name, i)).join('');
+        }
+
+        // 创建奖项HTML
+        function createPrizeHTML(prize, categoryName, index) {
+            return `
+                <div class="prize-item">
+                    <div class="prize-header">
+                        <span class="prize-year">${prize.year}年</span>
+                        <span class="prize-category-tag">${categoryName}</span>
+                    </div>
+                    <div class="prize-winners">${prize.laureates}</div>
+                    <div class="prize-motivation">${prize.motivation}</div>
+                    <button class="expand-button" onclick="toggleDetails(${index})">查看详情 ▼</button>
+                    <div class="prize-details" id="details-${index}">
+                        <div class="detail-section">
+                            <h4>理论原理</h4>
+                            <p>${prize.principle || '暂无详细信息'}</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>实际应用</h4>
+                            <p>${prize.application || '暂无详细信息'}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 展开/折叠详情
+        function toggleDetails(index) {
+            const details = document.getElementById(`details-${index}`);
+            const button = document.querySelector(`button[onclick="toggleDetails(${index})"]`);
+            if (details.classList.contains('show')) {
+                details.classList.remove('show');
+                button.textContent = '查看详情 ▼';
+            } else {
+                details.classList.add('show');
+                button.textContent = '收起详情 ▲';
+            }
+        }
+
+        // 搜索功能
+        function setSearchFilter(filter, element) {
+            searchFilter = filter;
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            if (!query) return;
+
+            switchTab('search', document.querySelectorAll('.nav-tab')[2]);
+
+            const results = [];
+            for (const [catKey, cat] of Object.entries(nobelCategories)) {
+                if (searchFilter !== 'all' && searchFilter !== catKey) continue;
+                for (const [subKey, sub] of Object.entries(cat.subcategories)) {
+                    for (const prize of sub.prizes) {
+                        const text = `${prize.year} ${prize.laureates} ${prize.motivation} ${prize.principle || ''} ${prize.application || ''} ${sub.name} ${cat.name}`.toLowerCase();
+                        if (text.includes(query)) {
+                            results.push({ ...prize, categoryName: cat.name, subcategoryName: sub.name, catKey, subKey });
+                        }
+                    }
+                }
+            }
+
+            // 按年份降序
+            results.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+
+            document.getElementById('searchResultsInfo').textContent = `找到 ${results.length} 条与 "${query}" 相关的结果`;
+
+            const container = document.getElementById('searchResults');
+            if (results.length === 0) {
+                container.innerHTML = '<div class="no-results">未找到相关结果，请尝试其他关键词</div>';
+                return;
+            }
+
+            container.innerHTML = results.map((prize, i) => `
+                <div class="prize-item">
+                    <div class="prize-header">
+                        <span class="prize-year">${prize.year}年</span>
+                        <span class="prize-category-tag">${prize.categoryName} › ${prize.subcategoryName}</span>
+                    </div>
+                    <div class="prize-winners">${prize.laureates}</div>
+                    <div class="prize-motivation">${prize.motivation}</div>
+                    <button class="expand-button" onclick="toggleSearchDetails(${i})">查看详情 ▼</button>
+                    <div class="prize-details" id="search-details-${i}">
+                        <div class="detail-section">
+                            <h4>理论原理</h4>
+                            <p>${prize.principle || '暂无详细信息'}</p>
+                        </div>
+                        <div class="detail-section">
+                            <h4>实际应用</h4>
+                            <p>${prize.application || '暂无详细信息'}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleSearchDetails(index) {
+            const details = document.getElementById(`search-details-${index}`);
+            const button = document.querySelector(`button[onclick="toggleSearchDetails(${index})"]`);
+            if (details.classList.contains('show')) {
+                details.classList.remove('show');
+                button.textContent = '查看详情 ▼';
+            } else {
+                details.classList.add('show');
+                button.textContent = '收起详情 ▲';
+            }
+        }
+
+        // 标签切换
+        function switchTab(tabName, element) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            if (element) element.classList.add('active');
+
+            if (tabName === 'categories') {
+                showCategoryList();
+            }
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initOverview();
+            showCategoryList();
+        });
+    </script>
+</body>
+</html>

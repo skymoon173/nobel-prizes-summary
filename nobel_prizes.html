@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>截至2025年诺贝尔奖完整信息</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #1a1a2e;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        nav {
+            background-color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .nav-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: #1a1a2e;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background-color: #e94560;
+            transform: translateY(-2px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .category {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+        
+        .category.active {
+            display: block;
+        }
+        
+        .category h2 {
+            color: #1a1a2e;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e94560;
+        }
+        
+        .prize-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #1a1a2e;
+        }
+        
+        .year {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #e94560;
+            margin-bottom: 0.5rem;
+        }
+        
+        .winners {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        
+        .contribution {
+            margin-bottom: 1rem;
+        }
+        
+        .principle, .application {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .principle h4, .application h4 {
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background-color: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category {
+                padding: 1.5rem;
+            }
+            
+            .category h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>截至2025年诺贝尔奖完整信息</h1>
+        <p class="subtitle">按学科分类，包含原理与应用解释</p>
+    </header>
+    
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" data-category="medicine">生理学或医学</button>
+            <button class="nav-btn" data-category="physics">物理学</button>
+            <button class="nav-btn" data-category="chemistry">化学</button>
+            <button class="nav-btn" data-category="literature">文学</button>
+            <button class="nav-btn" data-category="peace">和平</button>
+            <button class="nav-btn" data-category="economics">经济学</button>
+        </div>
+    </nav>
+    
+    <main>
+        <!-- 生理学或医学奖 -->
+        <section id="medicine" class="category active">
+            <h2>生理学或医学奖</h2>
+            
+            <div class="prize-item">
+                <div class="year">2025年</div>
+                <div class="winners">获奖者: 玛丽・布伦科(美国，系统生物学研究所)、弗雷德・拉姆斯德尔(美国，索诺马生物治疗公司)、坂口志文(日本，大阪大学)</div>
+                <div class="contribution">
+                    <strong>贡献:</strong> 发现免疫系统的“维稳密码”，揭示了调节性T细胞在维持免疫平衡中的关键作用。
+                </div>
+                <div class="principle">
+                    <h4>原理</h4>
+                    <p>研究揭示了调节性T细胞通过特定信号通路抑制过度免疫反应的机制，发现了关键分子在维持免疫系统稳态中的作用，解释了自身免疫疾病发生的根本原因。</p>
+                </div>
+                <div class="application">
+                    <h4>应用</h4>
+                    <p>为自身免疫疾病(如类风湿性关节炎、系统性红斑狼疮)的治疗提供了新靶点，推动了免疫检查点抑制剂在癌症治疗中的应用，有助于开发更安全有效的免疫疗法。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 物理学奖 -->
+        <section id="physics" class="category">
+            <h2>物理学奖</h2>
+            
+            <div class="prize-item">
+                <div class="year">2025年</div>
+                <div class="winners">获奖者: 约翰·克拉克、麦克·H·德沃雷特、约翰·M·马蒂尼</div>
+                <div class="contribution">
+                    <strong>贡献:</strong> 发现电路中的宏观量子力学隧道效应和能量量子化。
+                </div>
+                <div class="principle">
+                    <h4>原理</h4>
+                    <p>在宏观尺度的电路中实现了量子力学效应，证明了超导电路中的电子可以通过隧道效应穿越能垒，并且能量是量子化的。这一发现验证了量子力学在宏观系统中的适用性。</p>
+                </div>
+                <div class="application">
+                    <h4>应用</h4>
+                    <p>推动了量子计算的发展，为构建更稳定的量子比特提供了基础，加速了量子传感器的研发，有助于提高精密测量技术，在量子通信和量子模拟领域具有重要应用前景。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 化学奖 -->
+        <section id="chemistry" class="category">
+            <h2>化学奖</h2>
+            
+            <div class="prize-item">
+                <div class="year">2025年</div>
+                <div class="winners">获奖者: 北川进(日本，京都大学)、理查德·罗布森(澳大利亚)、奥马尔·亚吉(美国)</div>
+                <div class="contribution">
+                    <strong>贡献:</strong> 发展金属有机框架(MOFs)材料，为化学创造了新空间。
+                </div>
+                <div class="principle">
+                    <h4>原理</h4>
+                    <p>金属有机框架是由金属离子作为结构节点，与长链有机分子连接形成的具有巨大空腔的晶体结构。通过调整金属离子和有机配体的种类，可以精确控制框架的孔径大小和功能基团，实现对特定分子的选择性吸附。</p>
+                </div>
+                <div class="application">
+                    <h4>应用</h4>
+                    <p>用于从沙漠空气中收集水、捕获二氧化碳以应对气候变化、储存氢气等清洁能源，在药物递送、催化反应、传感器和分离技术等领域具有广泛应用前景。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 文学奖 -->
+        <section id="literature" class="category">
+            <h2>文学奖</h2>
+            
+            <div class="prize-item">
+                <div class="year">2025年</div>
+                <div class="winners">获奖者: 拉斯洛·卡撒兹纳霍凯(匈牙利)</div>
+                <div class="contribution">
+                    <strong>贡献:</strong> 以独特的叙事风格和深刻的思想内涵，展现了当代欧洲社会的复杂性和人性的深度。
+                </div>
+                <div class="principle">
+                    <h4>创作风格</h4>
+                    <p>其作品融合了魔幻现实主义与哲学思考，采用非线性叙事结构，通过多重视角展现人物内心世界，探索时间、记忆和存在的本质问题。</p>
+                </div>
+                <div class="application">
+                    <h4>文学影响</h4>
+                    <p>作品被翻译成多种语言，对当代世界文学产生了深远影响，推动了文学形式的创新，促使读者重新思考现代社会中的人性、道德和生存意义。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 和平奖 -->
+        <section id="peace" class="category">
+            <h2>和平奖</h2>
+            
+            <div class="prize-item">
+                <div class="year">2025年</div>
+                <div class="winners">获奖者: 玛丽亚 • 科里娜 • 马查多(委内瑞拉)</div>
+                <div class="contribution">
+                    <strong>贡献:</strong> 为促进委内瑞拉的民主进程和人权保护做出了杰出贡献。
+                </div>
+                <div class="principle">
+                    <h4>和平理念</h4>
+                    <p>倡导通过非暴力手段推动政治改革，坚持民主原则，致力于保护公民权利和自由，促进社会和解与包容。</p>
+                </div>
+                <div class="application">
+                    <h4>社会影响</h4>
+                    <p>激发了委内瑞拉及拉丁美洲地区的民主运动，提高了国际社会对该地区人权状况的关注，为推动全球民主进程做出了重要贡献。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 经济学奖 -->
+        <section id="economics" class="category">
+            <h2>经济学奖</h2>
+            
+            <div class="prize-item">
+                <div class="year">2025年</div>
+                <div class="winners">获奖者: 乔尔·莫基尔(美国)、菲利普·阿吉翁(法国)、彼得·豪伊特(加拿大)</div>
+                <div class="contribution">
+                    <strong>贡献:</strong> 对创新驱动型经济增长理论的阐释，以及对制度如何影响经济繁荣的研究。
+                </div>
+                <div class="principle">
+                    <h4>经济理论</h4>
+                    <p>提出了内生技术进步模型，强调创新是经济增长的核心驱动力，分析了制度、教育和市场竞争对创新的影响，解释了不同国家经济发展差异的根本原因。</p>
+                </div>
+                <div class="application">
+                    <h4>政策应用</h4>
+                    <p>为政府制定创新政策、教育政策和产业政策提供了理论依据，有助于推动经济可持续增长，促进技术扩散和产业升级，提高国家竞争力。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 诺贝尔奖信息展示 | 按学科分类，包含原理与应用解释</p>
+    </footer>
+    
+    <script>
+        // 获取所有导航按钮和分类区块
+        const navBtns = document.querySelectorAll('.nav-btn');
+        const categories = document.querySelectorAll('.category');
+        
+        // 为每个导航按钮添加点击事件
+        navBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // 获取目标分类ID
+                const targetCategory = btn.getAttribute('data-category');
+                
+                // 移除所有按钮的active类
+                navBtns.forEach(b => b.classList.remove('active'));
+                // 移除所有分类的active类
+                categories.forEach(cat => cat.classList.remove('active'));
+                
+                // 为当前按钮和对应分类添加active类
+                btn.classList.add('active');
+                document.getElementById(targetCategory).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
