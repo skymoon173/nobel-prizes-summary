@@ -13,3 +13,25 @@ package-lock.json
 
 # Secrets
 github.md
+
+# Build artifacts
+node_modules/
+dist/
+build/
+*.exe
+*.apk
+*.appx
+*.msi
+*.dmg
+*.AppImage
+*.snap
+
+# Cordova/Android
+platforms/
+plugins/
+www/
+.gradle/
+
+# JDK
+jdk/
+android-sdk/

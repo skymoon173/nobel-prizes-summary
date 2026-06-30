@@ -1,0 +1,59 @@
+{
+  "name": "nobel-prizes-summary",
+  "version": "1.0.0",
+  "description": "诺贝尔奖综合系统 - 完整历史(1901-2025)与科学分类系统",
+  "main": "electron-main.js",
+  "author": "skymoon173",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build:exe": "electron-builder --win --dir",
+    "dist:exe": "electron-builder --win",
+    "build:apk": "cordova build android --release"
+  },
+  "build": {
+    "appId": "com.skymoon173.nobel",
+    "productName": "诺贝尔奖综合系统",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron-main.js",
+      "nobel_prizes_combined.html",
+      "nobel_data.js",
+      "year_*.html",
+      "*.pdf",
+      "*.docx",
+      "*.md",
+      "*.py",
+      "*.ps1"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "诺贝尔奖综合系统"
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8"
+  }
+}
